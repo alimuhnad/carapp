@@ -12,7 +12,7 @@ const addFMZ=require('../models/addFMZ')
 const addSUBzone=require('../models/addSUBzone')
 const addcrean=require('../models/addcrean')
 const addhavecar=require('../models/addhavecar')
-mongoose.connect('mongodb://localhost:27017/car');
+mongoose.connect('mongodb://a:a@ds161539.mlab.com:61539/a');
 const app = express()
 
 // //دالة التاكد من ان التوكن الي تم ارساله خلال الصفحة الي تم اختيارها صحيح ومسجل
