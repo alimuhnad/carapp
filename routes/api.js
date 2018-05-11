@@ -127,7 +127,7 @@ router.post('/reviews', function(req, res) {
 
 
 //اضافة نوع الخط
-  router.post('/adDtypeofline', function(req, res) {   
+  router.post('/adDtypeofline12', function(req, res) {   
 
     addtypeofline.create({
 
@@ -142,14 +142,13 @@ router.post('/reviews', function(req, res) {
 
   });
 
+
 //الحصول على بيانات نوع الخط
-  router.get('/geTtypeofline', function(req, res) {   
-
-
-            addtypeofline.find(function(err, review) {
+  router.get('/GeTtypeofline1', function(req, res) {   
+            addtypeofline.find(function(err, getit) {
             if (err)
                 res.send(err)
-            res.json(review);
+            res.json(getit);
         });
     });
 
