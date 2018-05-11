@@ -131,17 +131,13 @@ router.post('/reviews', function(req, res) {
 
     addtypeofline.create({
 
-        linetype:req.body.linetype,
+        linetype:req.body.linetype
     
 
     }, function(err, review) {
         if (err)
             res.send(err);
-            addtypeofline.find(function(err, review) {
-            if (err)
-                res.send(err)
-            res.json(review);
-        });
+         
     });
 
   });
