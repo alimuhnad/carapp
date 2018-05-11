@@ -127,7 +127,7 @@ router.post('/reviews', function(req, res) {
 
 
 //اضافة نوع الخط
-  router.post('/adDtypeofline12', function(req, res) {   
+  router.post('/addline', function(req, res) {   
 
     addtypeofline.create({
 
