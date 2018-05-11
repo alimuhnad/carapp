@@ -7,7 +7,7 @@ const Schema = mongoose.Schema
 const add = new Schema({
     carname: String,
     cbody: String,
-    phonenum:String,
+    phonenum:{ type: String,unique: true },
     rating: Number,
     zonetabel:{
         masterzone:String,

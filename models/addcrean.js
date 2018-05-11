@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 const Schema = mongoose.Schema
 const userSchema= new Schema({
         drivername:String,
-        driverphonenum:String,
+        driverphonenum:{ type: String,unique: true },
         wight:String,
         cartype:String,
         location:String,
