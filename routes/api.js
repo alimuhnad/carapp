@@ -10,9 +10,10 @@ const Zonez=require('../models/getzonz')
 const addzone=require('../models/addMzone')
 const addFMZ=require('../models/addFMZ')
 const addSUBzone=require('../models/addSUBzone')
+const addtypeofline=require('../models/addtypeofline')
 const addcrean=require('../models/addcrean')
 const addhavecar=require('../models/addhavecar')
-mongoose.connect('mongodb://a:a@ds161539.mlab.com:61539/a');
+mongoose.connect('mongodb://localhost:27017/car');
 const app = express()
 
 // //دالة التاكد من ان التوكن الي تم ارساله خلال الصفحة الي تم اختيارها صحيح ومسجل
@@ -42,7 +43,7 @@ const app = express()
 
 // })
 
-
+//اضافة خطوط النقل
 router.post('/reviews', function(req, res) {
   Items.create({
       carname: req.body.carname,
@@ -78,27 +79,29 @@ router.post('/reviews', function(req, res) {
   });
 });
 
-router.post('/zonz', function(req, res) {   
+// //اضافة منطقة
+// router.post('/zonz', function(req, res) {   
 
-    Zonez.create({
+//     Zonez.create({
 
         
-            masterzone:  req.body.masterzone,
-            FMZ:  req.body.FMZ,
-            subzone:  req.body.subzone
+//             masterzone:  req.body.masterzone,
+//             FMZ:  req.body.FMZ,
+//             subzone:  req.body.subzone
 
-    }, function(err, review) {
-        if (err)
-            res.send(err);
-            Zonez.find(function(err, review) {
-            if (err)
-                res.send(err)
-            res.json(review);
-        });
-    });
+//     }, function(err, review) {
+//         if (err)
+//             res.send(err);
+//             Zonez.find(function(err, review) {
+//             if (err)
+//                 res.send(err)
+//             res.json(review);
+//         });
+//     });
 
-  });
+//   });
 
+  //اضافة كرين
   router.post('/addcrean', function(req, res) {   
 
     addcrean.create({
@@ -123,6 +126,40 @@ router.post('/zonz', function(req, res) {
   });
 
 
+//اضافة نوع الخط
+  router.post('/addtypeofline', function(req, res) {   
+
+    addtypeofline.create({
+
+        linetype:req.body.linetype,
+    
+
+    }, function(err, review) {
+        if (err)
+            res.send(err);
+            addtypeofline.find(function(err, addtypeofline1) {
+            if (err)
+                res.send(err)
+            res.json(addtypeofline1);
+        });
+    });
+
+  });
+
+//الحصول على بيانات نوع الخط
+  router.get('/gettypeofline', function(req, res) {   
+
+
+            addtypeofline.find(function(err, addtypeofline1) {
+            if (err)
+                res.send(err)
+            res.json(addtypeofline1);
+        });
+    });
+
+
+
+//اضافة سيارات ثقيلة
   router.post('/addhavecar', function(req, res) {   
 
     addhavecar.create({
@@ -148,14 +185,10 @@ router.post('/zonz', function(req, res) {
 
 
   //addzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzoneaddzonea
+//اضافة مدينة
   router.post('/addMzone', function(req, res) {   
-
     addzone.create({
-
-        
             masterzone:  req.body.masterzone,
-        
-
     }, function(err, review) {
         if (err)
             res.send(err);
@@ -169,6 +202,8 @@ router.post('/zonz', function(req, res) {
   });
 
   //addFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZaddFMZ
+  //اضافة اقضية
+
   router.post('/addFMZ', function(req, res) {   
     addzone.findOne({masterzone:  req.body.masterzone},(err,review)=>{
                if(err){
@@ -197,6 +232,8 @@ router.post('/zonz', function(req, res) {
   });
 
 //addSUBzoneaddSUBzoneaddSUBzoneaddSUBzoneaddSUBzoneaddSUBzoneaddSUBzoneaddSUBzoneaddSUBzoneaddSUBzoneaddSUBzoneaddSUBzone
+  //اضافة منطقة
+
 router.post('/addSUBzone', function(req, res) {   
     addzone.findOne({masterzone:  req.body.masterzone},(err,review)=>{
                if(err){
@@ -233,7 +270,7 @@ router.post('/addSUBzone', function(req, res) {
         })
   });
 
-
+//عرض المدن
 router.get('/zonz', function(req, res) {
     addzone.find(function(err, review) {
             if (err)
@@ -242,7 +279,7 @@ router.get('/zonz', function(req, res) {
         });
   });
 
-
+//عرض الاقضية في المدينة
   router.post('/zonzz',function(req, res) {
       let n=req.body.masterzone;
       addFMZ.find({masterzone:n},function(err, review) {
@@ -252,6 +289,7 @@ router.get('/zonz', function(req, res) {
 });
 });
 
+//عرض المناطق في القضاء
 
 router.post('/zonzzz',function(req, res) {
     let mc=req.body.masterzone;
@@ -268,6 +306,7 @@ router.post('/zonzzz',function(req, res) {
     
 });
 
+//نوع المركبة
 router.post('/types', function(req, res) {
     Types.create({
         cartype: req.body.cartype,
@@ -281,7 +320,7 @@ router.post('/types', function(req, res) {
 
 
 
-
+//عرض نوع المركبة
   router.get('/types', function(req, res) {
     Types.find(function(err, review) {
         if (err)
@@ -290,6 +329,7 @@ router.post('/types', function(req, res) {
     });
  });
 
+//عرض جميع خطوط النقل
 
 router.get('/get', function(req, res) {
 
@@ -301,7 +341,7 @@ router.get('/get', function(req, res) {
 });
 
 
-
+//عرض الكرين
 router.get('/getcreans', function(req, res) {
 
     addcrean.find(function(err, addcrean1) {
@@ -311,7 +351,7 @@ router.get('/getcreans', function(req, res) {
        });
  });
 
-
+//عرض سيارات الحمل
  router.get('/gethavycars', function(req, res) {
 
     addhavecar.find(function(err, addhavecar1) {
