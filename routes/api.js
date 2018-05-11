@@ -150,10 +150,10 @@ router.post('/reviews', function(req, res) {
   router.get('/geTtypeofline', function(req, res) {   
 
 
-            addtypeofline.find(function(err, addtypeofline1) {
+            addtypeofline.find(function(err, review) {
             if (err)
                 res.send(err)
-            res.json(addtypeofline1);
+            res.json(review);
         });
     });
 
