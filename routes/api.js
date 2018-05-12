@@ -13,7 +13,8 @@ const addSUBzone=require('../models/addSUBzone')
 const addtypeofline=require('../models/addtypeofline')
 const addcrean=require('../models/addcrean')
 const addhavecar=require('../models/addhavecar')
-mongoose.connect('mongodb://localhost:27017/car');
+//mongoose.connect('mongodb://localhost:27017/car');
+mongoose.connect('mongodb://a:a@ds161539.mlab.com:61539/a');
 const app = express()
 
 // //دالة التاكد من ان التوكن الي تم ارساله خلال الصفحة الي تم اختيارها صحيح ومسجل
@@ -63,6 +64,7 @@ router.post('/reviews', function(req, res) {
       phonenum:req.body.phonenum,
       carditels:req.body.carditels,
       cartype:req.body.cartype,
+      age:req.body.age,
       gender:req.body.gender,
       status:req.body.status,
       createdetaandtime:req.body.createdetaandtime,
@@ -127,33 +129,28 @@ router.post('/reviews', function(req, res) {
 
 
 //اضافة نوع الخط
-  router.post('/adDtypeofline', function(req, res) {   
+router.post('/adDtypeofline12', function(req, res) {   
 
     addtypeofline.create({
 
-        linetype:req.body.linetype,
+        linetype:req.body.linetype
     
 
     }, function(err, review) {
         if (err)
             res.send(err);
-            addtypeofline.find(function(err, review) {
-            if (err)
-                res.send(err)
-            res.json(review);
-        });
+         
     });
 
   });
 
+
 //الحصول على بيانات نوع الخط
-  router.get('/geTtypeofline', function(req, res) {   
-
-
-            addtypeofline.find(function(err, review) {
+  router.get('/GeTtypeofline1', function(req, res) {   
+            addtypeofline.find(function(err, getit) {
             if (err)
                 res.send(err)
-            res.json(review);
+            res.json(getit);
         });
     });
 
@@ -363,23 +360,50 @@ router.get('/getcreans', function(req, res) {
 
 
 
+//خطوط نقل بحث متقدم
+router.post('/searchadvince', function(req, res) {   
+    let type=[]
+    type=req.body.type
+    let line=[]
+    line=req.body.line
+    gender=req.body.gender
+    upper=req.body.upper
+    lower=req.body.lower
+//if(type==null||line==null||gender==null){
+ 
+//Items.find(  { cartype: type ,carditels: line,status: { $gt: lower, $lt: upper }},function(err, getitall1) {
+    Items.find( {$or:[  { cartype: type },{carditels: line},{status: { $gt: lower, $lt: upper }} ]},function(err, getitall1) {
+    if (err)
+        res.send(err)
+    res.json(getitall1);
+});
+//}else{
+//     Items.find( {$or:[  { cartype: type },{carditels: line},{status: { $gt: lower, $lt: upper }} ]},function(err, getitall1) {
+//         if (err)
+//             res.send(err)
+//         res.json(getitall1);
+// });
+//}
+
+
+});
 
 
 
 
 
 // //مسار الرجستريشن حتى يسجل الشخص
-//   router.post('/reg',(req,res)=>{
+   router.post('/reg',(req,res)=>{
 //     let payload={subject : reg._id}
 //     let token =jwt.sign(payload,'secritkey')
-//     let userDate =req.body;
-//     let user = new User(userDate)
-//     user.save((err,reg)=>{
-//       let payload={subject : reg._id}
-//       let token =jwt.sign(payload,'secritkey')
-//       res.status(200).send({token})
-//     })
-//   })
+     let userDate =req.body;
+     let user = new User(userDate)
+     user.save((err,reg)=>{
+  //     let payload={subject : reg._id}
+  //     let token =jwt.sign(payload,'secritkey')
+       res.status(200).send({token})
+     })
+   })
 
 //   //داله الدخول مع التوكن
 //   router.post('/log',(req,res)=>{
