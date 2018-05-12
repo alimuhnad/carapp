@@ -13,6 +13,10 @@ const addSUBzone=require('../models/addSUBzone')
 const addtypeofline=require('../models/addtypeofline')
 const addcrean=require('../models/addcrean')
 const addhavecar=require('../models/addhavecar')
+var Filter = require('bad-words')
+filter = new Filter();
+
+
 mongoose.connect('mongodb://a:a@ds161539.mlab.com:61539/a');
 const app = express()
 
@@ -46,8 +50,8 @@ const app = express()
 //اضافة خطوط النقل
 router.post('/reviews', function(req, res) {
   Items.create({
-      carname: req.body.carname,
-      cbody: req.body.cbody,
+      carname:filter.clean(req.body.carname) ,
+      cbody:   filter.clean(req.body.cbody) ,
       zonetabel:{
           masterzone:req.body.masterzone,
           FMZ:req.body.FMZ,
@@ -107,13 +111,13 @@ router.post('/reviews', function(req, res) {
 
     addcrean.create({
 
-        drivername:req.body.drivername,
+        drivername: filter.clean(req.body.drivername),
         driverphonenum:req.body.driverphonenum,
         wight:req.body.wight,
         cartype:req.body.cartype,
         location:req.body.location,
-        createdtime:req.body.createdtime
-
+        createdtime:req.body.createdtime,
+        viewsconts:req.body.viewsconts
     }, function(err, review) {
         if (err)
             res.send(err);
@@ -160,13 +164,13 @@ router.post('/adDtypeofline12', function(req, res) {
 
     addhavecar.create({
 
-        drivername:req.body.drivername,
+        drivername: filter.clean(req.body.drivername),
         driverphonenum:req.body.driverphonenum,
         wight:req.body.wight,
         cartype:req.body.cartype,
         location:req.body.location,
-        createdtime:req.body.createdtime
-
+        createdtime:req.body.createdtime,
+        viewsconts:req.body.viewsconts
     }, function(err, review) {
         if (err)
             res.send(err);
@@ -328,7 +332,8 @@ router.post('/types', function(req, res) {
 //عرض جميع خطوط النقل
 
 router.get('/get', function(req, res) {
-
+   
+  
    Items.find(function(err, review) {
           if (err)
               res.send(err)
@@ -357,8 +362,43 @@ router.get('/getcreans', function(req, res) {
        });
  });
 
+    //اضافة مشاهدات
+    router.post('/addviews', function(req, res) {
+    let query ={_id: req.body.id}
 
 
+    Items.findOneAndUpdate(query, { $inc: { viewsconts: 1 }},function(err, addhavecar1) {
+            if (err)
+                res.send(err)
+            
+            res.json(addhavecar1);
+        });
+    });
+
+    router.post('/addviewscreans', function(req, res) {
+    let query ={_id: req.body.id}
+
+
+    addcrean.findOneAndUpdate(query, { $inc: { viewsconts: 1 }},function(err, addhavecar1) {
+        if (err)
+            res.send(err)
+        
+        res.json(addhavecar1);
+    });
+    });
+
+    router.post('/addviewshavycars', function(req, res) {
+    let query ={_id: req.body.id}
+
+
+    addhavecar.findOneAndUpdate(query, { $inc: { viewsconts: 1 }},function(err, addhavecar1) {
+            if (err)
+                res.send(err)
+            
+            res.json(addhavecar1);
+        });
+    });
+    
 //خطوط نقل بحث متقدم
 router.post('/searchadvince', function(req, res) {   
     let type=[]

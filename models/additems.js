@@ -27,7 +27,7 @@ const add = new Schema({
     age:String,
     status:Number,
     createdetaandtime:String,
-    viewsconts:String,
+    viewsconts:Number,
 })
 
 

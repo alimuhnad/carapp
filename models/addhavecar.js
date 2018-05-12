@@ -8,8 +8,8 @@ const userSchema= new Schema({
    wight:String,
    cartype:String,
    location:String,
-   createdtime:String
-
+   createdtime:String,
+   viewsconts:Number
 })
 
 
