@@ -13,7 +13,10 @@ const addSUBzone=require('../models/addSUBzone')
 const addtypeofline=require('../models/addtypeofline')
 const addcrean=require('../models/addcrean')
 const addhavecar=require('../models/addhavecar')
+<<<<<<< HEAD
 //mongoose.connect('mongodb://localhost:27017/car');
+=======
+>>>>>>> 579ef09a10a1399df2da4ef70e64ebd980a25ae0
 mongoose.connect('mongodb://a:a@ds161539.mlab.com:61539/a');
 const app = express()
 
@@ -129,7 +132,11 @@ router.post('/reviews', function(req, res) {
 
 
 //اضافة نوع الخط
+<<<<<<< HEAD
 router.post('/adDtypeofline12', function(req, res) {   
+=======
+  router.post('/addline', function(req, res) {   
+>>>>>>> 579ef09a10a1399df2da4ef70e64ebd980a25ae0
 
     addtypeofline.create({
 
