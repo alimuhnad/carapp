@@ -500,5 +500,40 @@ router.post('/searchadvince', function(req, res) {
    })
 
 
+// //مسار الرجستريشن حتى يسجل الشخص
+   router.post('/reg',(req,res)=>{
+//     let payload={subject : reg._id}
+//     let token =jwt.sign(payload,'secritkey')
+     let userDate =req.body;
+     let user = new User(userDate)
+     user.save((err,reg)=>{
+  //     let payload={subject : reg._id}
+  //     let token =jwt.sign(payload,'secritkey')
+       res.status(200).send({token})
+     })
+   })
+
+//   //داله الدخول مع التوكن
+   router.post('/log',(req,res)=>{
+     let userDate=req.body;
+     User.findOne({phonenum:userDate.phonenum},(err,User)=>{
+       if(err){
+         console.log(err);
+       }else{
+         if(!User){
+           res.status(401).send('invalid')
+         }else{
+           if(User.password !== userDate.password){
+             res.status(401).send('invalid')
+           }else{
+            //  let payload={subject : User._id}
+            //  let token =jwt.sign(payload,'secritkey')
+             res.status(200).send('ok')
+           }
+         }
+       }
+     })
+   })
+
 
   module.exports = router;
