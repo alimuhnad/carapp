@@ -330,16 +330,49 @@ router.post('/types', function(req, res) {
  });
 
 //عرض جميع خطوط النقل
-
 router.get('/get', function(req, res) {
-   
-  
    Items.find(function(err, review) {
           if (err)
               res.send(err)
           res.json(review);
       });
 });
+
+
+//حذف 
+router.post('/deleteits', function(req, res) {
+    Items.findOneAndRemove({_id:req.body.id},function(err, review) {
+           if (err)
+               res.send(err)
+           res.json(review);
+       });
+ });
+ 
+
+//سحب بيانات المسجل حسب الرقم
+router.post('/myadslines', function(req, res) {
+    let userDate=req.body;
+    User.findOne({phonenum:userDate.phonenum},(err,User)=>{
+      if(err){
+        console.log(err);
+      }else{
+        if(!User){
+          res.status(401).send('invalid')
+        }else{
+          if(User.password !== userDate.password){
+            res.status(401).send('invalid')
+          }else{
+            Items.find({phonenum:req.body.phonenum},function(err, review) {
+                if (err)
+                    res.send(err)
+                res.json(review);
+            });
+          }
+        }
+      }
+    })
+  
+ });
 
 
 //عرض الكرين
@@ -440,31 +473,31 @@ router.post('/searchadvince', function(req, res) {
      user.save((err,reg)=>{
   //     let payload={subject : reg._id}
   //     let token =jwt.sign(payload,'secritkey')
-       res.status(200).send({token})
+       res.status(200).send('ok')
      })
    })
 
 //   //داله الدخول مع التوكن
-//   router.post('/log',(req,res)=>{
-//     let userDate=req.body;
-//     User.findOne({email:userDate.email},(err,User)=>{
-//       if(err){
-//         console.log(err);
-//       }else{
-//         if(!User){
-//           res.status(401).send('invalid')
-//         }else{
-//           if(User.password !== userDate.password){
-//             res.status(401).send('invalid')
-//           }else{
-//             let payload={subject : User._id}
-//             let token =jwt.sign(payload,'secritkey')
-//             res.status(200).send({token})
-//           }
-//         }
-//       }
-//     })
-//   })
+   router.post('/log',(req,res)=>{
+     let userDate=req.body;
+     User.findOne({phonenum:userDate.phonenum},(err,User)=>{
+       if(err){
+         console.log(err);
+       }else{
+         if(!User){
+           res.status(401).send('invalid')
+         }else{
+           if(User.password !== userDate.password){
+             res.status(401).send('invalid')
+           }else{
+            //  let payload={subject : User._id}
+            //  let token =jwt.sign(payload,'secritkey')
+             res.status(200).send('ok')
+           }
+         }
+       }
+     })
+   })
 
 
 
