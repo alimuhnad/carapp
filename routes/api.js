@@ -170,10 +170,29 @@ router.get('/Addcreantype', function(req, res) {
 });
 
 
+//الحصول على بيانات نوع الخط
+router.get('/GeTtypeofline1', function(req, res) {   
+    addtypeofline.find(function(err, getit3) {
+    if (err)
+        res.send(err)
+    res.json(getit3);
+});
+});
+
+
+// نوع  بحثالكرين
+router.post('/Addcreantype3', function(req, res) {   
+    addcrean.find({},function(err, getit4) {
+if (err)
+res.send(err)
+res.json(getit4);
+});
+});
+
     
-    // نوع سيارت الحمل
-router.get('/Addhavycarstype', function(req, res) {   
-        Addhavycarstype.find(function(err, getit5) {
+    // نوع سيارت بحث الحمل
+router.post('/Addhavycarstype3', function(req, res) {   
+    addhavecar.find({},function(err, getit5) {
         if (err)
             res.send(err)
       res.json(getit5);
