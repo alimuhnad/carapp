@@ -170,7 +170,7 @@ router.post('/sendreport', function(req, res) {
     }, function(err, review) {
         if (err)
             res.send(err);
-            Zonez.find(function(err, review) {
+            Reports.find(function(err, review) {
             if (err)
                 res.send(err)
             res.json(review);
