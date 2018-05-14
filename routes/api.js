@@ -12,6 +12,7 @@ const addFMZ=require('../models/addFMZ')
 const addSUBzone=require('../models/addSUBzone')
 const addtypeofline=require('../models/addtypeofline')
 const addcrean=require('../models/addcrean')
+const Reports=require('../models/report')
 const addhavecar=require('../models/addhavecar')
 var Filter = require('bad-words')
 filter = new Filter();
@@ -125,9 +126,8 @@ router.post('/reviews', function(req, res) {
             if (err)
                 res.send(err)
             res.json(review);
-        });
+       });
     });
-
   });
 
 
@@ -158,6 +158,26 @@ router.post('/adDtypeofline12', function(req, res) {
     });
 
 
+//اضافةتقرير اسائة
+router.post('/sendreport', function(req, res) {   
+
+    Reports.create({
+
+        id: filter.clean(req.body.id),
+        msg:req.body.data12 ,
+        phone:req.body.phone ,
+        
+    }, function(err, review) {
+        if (err)
+            res.send(err);
+            Zonez.find(function(err, review) {
+            if (err)
+                res.send(err)
+            res.json(review);
+        });
+    });
+
+  });
 
 //اضافة سيارات ثقيلة
   router.post('/addhavecar', function(req, res) {   
@@ -499,41 +519,6 @@ router.post('/searchadvince', function(req, res) {
      })
    })
 
-
-// //مسار الرجستريشن حتى يسجل الشخص
-   router.post('/reg',(req,res)=>{
-//     let payload={subject : reg._id}
-//     let token =jwt.sign(payload,'secritkey')
-     let userDate =req.body;
-     let user = new User(userDate)
-     user.save((err,reg)=>{
-  //     let payload={subject : reg._id}
-  //     let token =jwt.sign(payload,'secritkey')
-       res.status(200).send({token})
-     })
-   })
-
-//   //داله الدخول مع التوكن
-   router.post('/log',(req,res)=>{
-     let userDate=req.body;
-     User.findOne({phonenum:userDate.phonenum},(err,User)=>{
-       if(err){
-         console.log(err);
-       }else{
-         if(!User){
-           res.status(401).send('invalid')
-         }else{
-           if(User.password !== userDate.password){
-             res.status(401).send('invalid')
-           }else{
-            //  let payload={subject : User._id}
-            //  let token =jwt.sign(payload,'secritkey')
-             res.status(200).send('ok')
-           }
-         }
-       }
-     })
-   })
 
 
   module.exports = router;
