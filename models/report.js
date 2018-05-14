@@ -5,8 +5,7 @@ const Schema = mongoose.Schema
 const userSchema= new Schema({
 id:String,
 phone:String,
-msg:String
-
+title:String
 })
 
 

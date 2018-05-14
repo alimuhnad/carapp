@@ -164,7 +164,7 @@ router.post('/sendreport', function(req, res) {
     Reports.create({
 
         id: filter.clean(req.body.id),
-        msg:req.body.data12 ,
+        title:req.body.data12 ,
         phone:req.body.phone ,
         
     }, function(err, review) {
