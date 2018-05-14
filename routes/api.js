@@ -13,6 +13,8 @@ const addSUBzone=require('../models/addSUBzone')
 const addtypeofline=require('../models/addtypeofline')
 const addcrean=require('../models/addcrean')
 const Reports=require('../models/report')
+const Addcreantype=require('../models/addcreantype')
+const Addhavycarstype=require('../models/addhavycarstype')
 const addhavecar=require('../models/addhavecar')
 var Filter = require('bad-words')
 filter = new Filter();
@@ -150,12 +152,58 @@ router.post('/adDtypeofline12', function(req, res) {
 
 //الحصول على بيانات نوع الخط
   router.get('/GeTtypeofline1', function(req, res) {   
-            addtypeofline.find(function(err, getit) {
+            addtypeofline.find(function(err, getit3) {
             if (err)
                 res.send(err)
-            res.json(getit);
+            res.json(getit3);
         });
     });
+    
+    
+    // نوع الكرين
+router.get('/Addcreantype', function(req, res) {   
+    Addcreantype.find(function(err, getit4) {
+    if (err)
+        res.send(err)
+    res.json(getit4);
+});
+});
+
+
+    
+    // نوع سيارت الحمل
+router.get('/Addhavycarstype', function(req, res) {   
+        Addhavycarstype.find(function(err, getit5) {
+        if (err)
+            res.send(err)
+      res.json(getit5);
+   });
+});
+
+    
+ // نوع الكرين
+router.post('/Addcreantype', function(req, res) {   
+       
+        Addhavycarstype.create({
+            Addcreantype:req.body.Addcreantype
+        }, function(err, review) {
+            if (err)
+                res.send(err);
+     });
+});
+    
+
+
+ // نوع سيارت الحمل
+router.post('/Addhavycarstype', function(req, res) {   
+      
+    Addhavycarstype.create({
+        havycarstype:req.body.havycarstype
+    }, function(err, review) {
+        if (err)
+     res.send(err);
+    });
+});
 
 
 //اضافةتقرير اسائة
