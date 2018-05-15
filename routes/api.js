@@ -203,8 +203,8 @@ router.post('/Addhavycarstype3', function(req, res) {
  // نوع الكرين
 router.post('/Addcreantype', function(req, res) {   
        
-        Addhavycarstype.create({
-            Addcreantype:req.body.Addcreantype
+    Addcreantype.create({
+        creantype:req.body.Addcreantype
         }, function(err, review) {
             if (err)
                 res.send(err);
