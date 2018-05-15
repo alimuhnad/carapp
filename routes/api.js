@@ -162,20 +162,28 @@ router.post('/adDtypeofline12', function(req, res) {
     
     // نوع الكرين
 router.get('/Addcreantype', function(req, res) {   
-    Addcreantype.find(function(err, getit4) {
+    Addcreantype.find(function(err, getit47) {
     if (err)
         res.send(err)
     res.json(getit4);
 });
 });
 
+    // نوع الكرين
+    router.get('/Addcreantype', function(req, res) {   
+        Addcreantype.find(function(err, getit47) {
+        if (err)
+            res.send(err)
+        res.json(getit4);
+    });
+    });
 
 //الحصول على بيانات نوع الخط
 router.get('/GeTtypeofline1', function(req, res) {   
-    addtypeofline.find(function(err, getit3) {
+    addtypeofline.find(function(err, getit37) {
     if (err)
         res.send(err)
-    res.json(getit3);
+    res.json(getit37);
 });
 });
 
@@ -204,7 +212,7 @@ router.post('/Addhavycarstype3', function(req, res) {
 router.post('/Addcreantype', function(req, res) {   
        
     Addcreantype.create({
-        creantype:req.body.Addcreantype
+        creantype:req.body.creantype
         }, function(err, review) {
             if (err)
                 res.send(err);
