@@ -152,7 +152,7 @@ router.post('/adDtypeofline12', function(req, res) {
 
 //الحصول على بيانات نوع الخط
   router.get('/GeTtypeofline1', function(req, res) {   
-            addtypeofline.find(function(err, getit3) {
+            addtypeofline.find({}, null,{sort: {createdetaandtime: -1}},function(err, getit3) {
             if (err)
                 res.send(err)
             res.json(getit3);
