@@ -418,7 +418,7 @@ router.post('/types', function(req, res) {
 
 //عرض جميع خطوط النقل
 router.get('/get', function(req, res) {
-   Items.find(function(err, review) {
+   Items.find({}, null,{sort: {createdetaandtime: -1}},function(err, review) {
           if (err)
               res.send(err)
           res.json(review);
