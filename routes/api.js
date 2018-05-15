@@ -162,19 +162,19 @@ router.post('/adDtypeofline12', function(req, res) {
     
     // نوع الكرين
 router.get('/Addcreantype', function(req, res) {   
-    Addcreantype.find(function(err, getit47) {
+    Addcreantype.find(function(err, getit497) {
     if (err)
         res.send(err)
-    res.json(getit4);
+    res.json(getit497);
 });
 });
 
     // نوع الكرين
-    router.get('/Addcreantype', function(req, res) {   
-        Addcreantype.find(function(err, getit47) {
+    router.get('/Addhavycarstype', function(req, res) {   
+        Addhavycarstype.find(function(err, getit47) {
         if (err)
             res.send(err)
-        res.json(getit4);
+        res.json(getit47);
     });
     });
 
@@ -190,10 +190,10 @@ router.get('/GeTtypeofline1', function(req, res) {
 
 // نوع  بحثالكرين
 router.post('/Addcreantype3', function(req, res) {   
-    addcrean.find({cartype:req.body.cartype},function(err, getit4) {
+    addcrean.find({cartype:req.body.cartype},function(err, getit490) {
 if (err)
 res.send(err)
-res.json(getit4);
+res.json(getit490);
 });
 });
 
