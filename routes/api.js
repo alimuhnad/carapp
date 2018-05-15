@@ -465,7 +465,7 @@ router.post('/myadslines', function(req, res) {
 //عرض الكرين
 router.get('/getcreans', function(req, res) {
 
-    addcrean.find(function(err, addcrean1) {
+    addcrean.find({}, null,{sort: {createdetaandtime: -1}},function(err, addcrean1) {
            if (err)
                res.send(err)
            res.json(addcrean1);
@@ -475,7 +475,7 @@ router.get('/getcreans', function(req, res) {
 //عرض سيارات الحمل
  router.get('/gethavycars', function(req, res) {
 
-    addhavecar.find(function(err, addhavecar1) {
+    addhavecar.find({}, null,{sort: {createdetaandtime: -1}},function(err, addhavecar1) {
            if (err)
                res.send(err)
            res.json(addhavecar1);
