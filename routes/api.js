@@ -16,6 +16,7 @@ const Reports=require('../models/report')
 const Addcreantype=require('../models/addcreantype')
 const Addhavycarstype=require('../models/addhavycarstype')
 const addhavecar=require('../models/addhavecar')
+const addplayersids=require('../models/addpayerid')
 var Filter = require('bad-words')
 filter = new Filter();
 
@@ -413,7 +414,20 @@ router.post('/types', function(req, res) {
    
   });
 
+  router.post('/notyfy', function(req, res) {
+    addplayersids.create({
+        idplayer: req.body.idplayer,
+    }, function(err, review) {
+        if (err)
+            res.send(err);
+          
+    });
+   
+  });
 
+function notyfyit(params) {
+    
+}
 
 //عرض نوع المركبة
   router.get('/types', function(req, res) {
