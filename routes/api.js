@@ -430,6 +430,10 @@ router.post('/types', function(req, res) {
         if (err)
             res.send(err)
         res.json(review);
+        var obj = JSON.parse(review);
+        console.log( obj.idplayer );
+        var fruits = []
+        fruits.push( obj.idplayer)
     });
    
   });
