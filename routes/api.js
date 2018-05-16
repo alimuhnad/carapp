@@ -80,6 +80,20 @@ router.post('/reviews', function(req, res) {
   }, function(err, review) {
       if (err)
           res.send(err);
+          addplayersids.find( { }, { "idplayer": 1,"_id": 0 },function(err, review) {
+            if (err)
+                res.send(err) 
+                let array = review.map(item => item.idplayer);
+                console.log(array);
+                            
+                var message = { 
+                    app_id: "948bb9b5-85ea-4d9e-8c5c-3fa58274fdc5",
+                    contents: {"en": "تم اضافة خط جديد"},
+                    include_player_ids: array
+                };
+                
+                sendNotification(message);
+                    });
           Items.find(function(err, review) {
           if (err)
               res.send(err)
@@ -125,6 +139,20 @@ router.post('/reviews', function(req, res) {
     }, function(err, review) {
         if (err)
             res.send(err);
+            addplayersids.find( { }, { "idplayer": 1,"_id": 0 },function(err, review) {
+                if (err)
+                    res.send(err) 
+                    let array = review.map(item => item.idplayer);
+                    console.log(array);
+                    
+            var message = { 
+                app_id: "948bb9b5-85ea-4d9e-8c5c-3fa58274fdc5",
+                contents: {"en": "تم اضافة كرين جديد"},
+                include_player_ids: array
+            };
+            
+            sendNotification(message);
+                });
             Zonez.find(function(err, review) {
             if (err)
                 res.send(err)
@@ -270,6 +298,20 @@ router.post('/sendreport', function(req, res) {
     }, function(err, review) {
         if (err)
             res.send(err);
+            addplayersids.find( { }, { "idplayer": 1,"_id": 0 },function(err, review) {
+                if (err)
+                    res.send(err) 
+                    let array = review.map(item => item.idplayer);
+                    console.log(array);
+                    
+          var message = { 
+            app_id: "948bb9b5-85ea-4d9e-8c5c-3fa58274fdc5",
+            contents: {"en": "تم اضافة سيارة حمل جديدة"},
+            include_player_ids: array
+          };
+          
+          sendNotification(message);
+            });
             Zonez.find(function(err, review) {
             if (err)
                 res.send(err)
@@ -426,16 +468,14 @@ router.post('/types', function(req, res) {
   });
 
   router.get('/notyfy', function(req, res) {
-    addplayersids.find(function(err, review) {
+    addplayersids.find( { }, { "idplayer": 1,"_id": 0 },function(err, review) {
         if (err)
-            res.send(err)
+            res.send(err) 
+     
+            
+
         res.json(review);
-        var obj = JSON.parse(review);
-        console.log( obj.idplayer );
-        var fruits = []
-        fruits.push( obj.idplayer)
     });
-   
   });
 
 function notyfyit(params) {
@@ -448,6 +488,8 @@ function notyfyit(params) {
         if (err)
             res.send(err)
         res.json(review);
+        
+
     });
  });
 
@@ -628,5 +670,60 @@ router.post('/searchadvince', function(req, res) {
            res.json(review);
        });
  });
+
+
+
+
+
+
+
+ var sendNotification = function(data) {
+    var headers = {
+      "Content-Type": "application/json; charset=utf-8",
+      "Authorization": "Basic NGEwMGZmMjItY2NkNy0xMWUzLTk5ZDUtMDAwYzI5NDBlNjJj"
+    };
+    
+    var options = {
+      host: "onesignal.com",
+      port: 443,
+      path: "/api/v1/notifications",
+      method: "POST",
+      headers: headers
+    };
+    
+    var https = require('https');
+    var req = https.request(options, function(res) {  
+      res.on('data', function(data) {
+        console.log("Response:");
+        console.log(JSON.parse(data));
+      });
+    });
+    
+    req.on('error', function(e) {
+      console.log("ERROR:");
+      console.log(e);
+    });
+    
+    req.write(JSON.stringify(data));
+    req.end();
+  };
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   module.exports = router;
