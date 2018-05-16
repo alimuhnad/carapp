@@ -425,6 +425,15 @@ router.post('/types', function(req, res) {
    
   });
 
+  router.get('/notyfy', function(req, res) {
+    addplayersids.find(function(err, review) {
+        if (err)
+            res.send(err)
+        res.json(review);
+    });
+   
+  });
+
 function notyfyit(params) {
     
 }
@@ -607,7 +616,13 @@ router.post('/searchadvince', function(req, res) {
        }
      })
    })
-
-
+//حذف النوتفكيشن
+   router.post('/dellnotyfy', function(req, res) {
+    addplayersids.findOneAndRemove({idplayer:req.body.idplayer},function(err, review) {
+           if (err)
+               res.send(err)
+           res.json(review);
+       });
+ });
 
   module.exports = router;
