@@ -54,6 +54,7 @@ const app = express()
 //اضافة خطوط النقل
 router.post('/reviews', function(req, res) {
   Items.create({
+      phonenumofuser:req.body.phonenumofuser,
       carname:filter.clean(req.body.carname) ,
       cbody:   filter.clean(req.body.cbody) ,
       zonetabel:{
@@ -526,7 +527,7 @@ router.post('/myadslines', function(req, res) {
           if(User.password !== userDate.password){
             res.status(401).send('invalid')
           }else{
-            Items.find({phonenum:req.body.phonenum},function(err, review) {
+            Items.find({phonenumofuser:req.body.phonenum},function(err, review) {
                 if (err)
                     res.send(err)
                 res.json(review);

@@ -5,9 +5,10 @@ var mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
 const add = new Schema({
+    phonenumofuser:String,
     carname: String,
     cbody: String,
-    phonenum:{ type: String,unique: true },
+    phonenum:number,
     rating: Number,
     zonetabel:{
         masterzone:String,
